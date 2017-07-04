@@ -1,10 +1,21 @@
-import scala.util.Random
+import scala.util.{Try, Success, Failure, Random}
+
+//import scala.util.Random
 
 object ShuffleShot {
   def main(args: Array[String]): Unit = {
-    val source = scala.io.Source.fromFile("member.txt")
-    val lines = try source.mkString finally source.close()
-    val shuffle = Random.shuffle(lines.lines.toList)
-    shuffle.foreach(s => print(s + '\n'))
+    if (args.length == 0) {
+      println("required filename to sbt \"run hoge.txt\"\n")
+      return
+    }
+    val filename = args(0)
+    Try(scala.io.Source.fromFile(filename)) match {
+      case Success(source) => {
+        val lines = try source.mkString finally source.close()
+        val shuffle = Random.shuffle(lines.lines.toList)
+        shuffle.foreach(s => println(s))
+      }
+      case Failure(error) => println(error.toString)
+    }
   }
 }
