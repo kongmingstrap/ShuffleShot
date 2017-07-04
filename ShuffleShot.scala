@@ -1,7 +1,5 @@
 import scala.util.{Try, Success, Failure, Random}
 
-//import scala.util.Random
-
 object ShuffleShot {
   def main(args: Array[String]): Unit = {
     if (args.length == 0) {
